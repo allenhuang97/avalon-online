@@ -21,9 +21,12 @@ avalonApp.controller('appController', function($scope) {
   			});
     	}
         if(newState == 2){
-            
+            socket.emit('start');
         }
     }
+    socket.on('get_character', function (data) {
+        console.log(data.character);
+    })
 });
 
 
