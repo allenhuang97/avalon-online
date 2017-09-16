@@ -9,9 +9,12 @@ app.get('/', function (req, res) {
       res.sendfile(__dirname + '/index.html');
 });
 
+app.post('/join', function (req, res) {
+
+});
+
 io.on('connection', function (socket) {
-      socket.emit('news', { hello: 'world' });
-        socket.on('my other event', function (data) {
-                console.log(data);
-                  });
+	socket.on('clientUserJoin', function (data) {
+		socket.emit('serverUserJoin', { name: data });
+  	});
 });
