@@ -12,6 +12,8 @@ app.get('/', function (req, res) {
 var users = {};
 var sockets = {};
 var user_id_count = 1;
+var user_array = [];
+var socket_array = [];
 io.on('connection', function (socket) {
     var user_id = user_id_count;
     console.log("user_id: " + user_id);
@@ -28,8 +30,16 @@ io.on('connection', function (socket) {
     });
 
     socket.on('start', function () {
+        user_array = [];
+        socket_array = [];
+        Object.keys(users).forEach(function (t) {
+            user_array.push(users[t]);
+            socket_array.push(sockets[t]);
+        });
         assign_character();
-        Object.keys(sockets).forEach(function (t) { sockets[t].emit('get_character', {character: users[t].character}) })
+        user_array.forEach(function (t) {
+            sockets[t.id].emit('get_character', {character: t.character})
+        });
     });
 
     socket.on('disconnect', function () {
