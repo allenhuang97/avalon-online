@@ -19,7 +19,7 @@ io.on('connection', function (socket) {
     console.log("user_id: " + user_id);
     user_id_count++;
 
-    var user = {id: user};
+    var user = {id: user_id};
     sockets[user_id] = socket;
 
     socket.on('clientUserJoin', function (data) {
@@ -36,9 +36,11 @@ io.on('connection', function (socket) {
             user_array.push(users[t]);
             socket_array.push(sockets[t]);
         });
+        console.log("starting1");
         assign_character();
-        user_array.forEach(function (t) {
-            sockets[t.id].emit('get_character', {character: t.character})
+        user_array.forEach(function (t, i) {
+        	console.log("name: " + t.name + ", character: " + t.character)
+            socket_array[i].emit('get_character', {character: t.character})
         });
     });
 
@@ -50,6 +52,34 @@ io.on('connection', function (socket) {
     });
 });
 
+var char5_6 = ["Assassin", "Minion of Mordred", "Merlin", "Loyal Servant of Arthur","Loyal Servant of Arthur","Loyal Servant of Arthur"];
+var char7_10 = ["Mordred", "Morgana", "Oberon", "Merlin", "Percival", "Loyal Servant of Arthur","Loyal Servant of Arthur", "Loyal Servant of Arthur","Loyal Servant of Arthur", "Assassin"];
+
 function assign_character() {
-    Object.keys(users).forEach(function (t) { users[t].character = users[t].name });
+	var limit = user_id_count,
+    count = 0,
+    lower_bound = 1,
+    upper_bound = user_id_count,
+    unique_random_numbers = [];
+    console.log("starting");
+    for(var i = 0; i < 5; i++){
+    	console.log(user_array[i].user + " " + user_array[i].id);
+    }
+    //console.log("user_array", user_array);
+
+	while (unique_random_numbers.length < limit) {
+	    var random_number = Math.round(Math.random()*(upper_bound - lower_bound) + lower_bound);
+	    if (unique_random_numbers.indexOf(random_number) == -1) { 
+	        unique_random_numbers.push( random_number );
+	        if(limit <= 6){
+	        	user_array[count].character = char5_6[random_number-1];
+	        	console.log(char5_6[random_number]); 
+	        }
+	        else{
+	        	user_array[count].character = char7_10[random_number-1];
+	        	console.log(char7_10[random_number]);
+	        }
+	        count++;
+	    }
+	}
 }
