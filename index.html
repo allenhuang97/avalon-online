@@ -1,8 +1,41 @@
-<script src="/socket.io/socket.io.js"></script>
-<script>
-  var socket = io();
-    socket.on('news', function (data) {
-        console.log(data);
-        socket.emit('my other event', { my: 'data' });
-    });
-</script>
+<!doctype html>
+<html>
+  <!-- <head>
+    <title>Avalon Online</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  </head>
+  <body>
+    <div ng-app="avalonApp" ng-controller="appController">
+      First Name: <input type="text" ng-model="firstName"><br>
+      Last Name: <input type="text" ng-model="lastName"><br>
+      <br>
+      Full Name: {{firstName + " " + lastName}}
+    </div>
+  </body> -->
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+  <script src="index.js"></script>
+<body>
+<div ng-app="avalonApp" ng-controller="appController" >
+  <div ng-if="state==0">
+  Name: <input type="text" ng-model="name"><br>
+  <button ng-click="changeState(1)">Enter</button>
+  </div>
+  <div ng-if="state==1">
+  <h1>Players:</h1>
+  <p ng-repeat="player in players">{{player}}</p>
+  </div>
+</div>
+
+<!-- <script>
+var avalonApp = angular.module('avalonApp', []);
+avalonApp.controller('appController', function($scope) {
+    $scope.firstName= "John";
+    $scope.lastName= "Doe";
+});
+</script> -->
+
+</body>
+</html>
