@@ -1,5 +1,6 @@
 //var angular = require(angular);
 var avalonApp = angular.module('avalonApp', ['ngRoute']);
+var socket = io();
 avalonApp.controller('appController', function($scope) {
     $scope.state = 0;
     $scope.name;
@@ -7,12 +8,12 @@ avalonApp.controller('appController', function($scope) {
     $scope.changeState = function(newState){
     	$scope.state = newState;
     	if(newState == 1){
-    		var socket = io();
     		//var socket = io.connect('http://localhost');
     		socket.emit('clientUserJoin', { name: 'Hello' });
-    		socket.on('serverUserJoin', function (data) {
-    			$scope.players.push(data.name.name);
-				console.log(data.name.name);
+    		socket.on('update', function (data) {
+    		    console.log("on update");
+    			$scope.players = Object.keys(data.users).map(function (t) { return data.users[t].name });
+                console.log("players: ", $scope.players);
   			});
     	}
     }
