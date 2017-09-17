@@ -4,6 +4,8 @@ var socket = io();
 avalonApp.controller('appController', function($scope) {
     $scope.state = 0;
     $scope.name;
+    $scope.character;
+    $scope.special = [];
     $scope.players = [];
     $scope.changeState = function(newState){
     	if(newState == 1){
@@ -25,7 +27,11 @@ avalonApp.controller('appController', function($scope) {
         }
     }
     socket.on('get_character', function (data) {
+        $scope.state = 2;
+        $scope.character = data.character;
+        $scope.special = data.special;
         console.log(data.character);
+        $scope.$apply();
     })
 });
 

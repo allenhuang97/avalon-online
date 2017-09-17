@@ -29,7 +29,8 @@
     <button disabled="true" id="btnStartGame" ng-click="changeState(2)">Start</button>
   </div>
   <div ng-if="state==2">
-    <h1>state2</h1>
+    <h1>Your Character: {{character}}</h1>
+    <p ng-repeat="s in special" ng-if="special!==undefined">{{s}}</p>
   </div>
 </div>
 
