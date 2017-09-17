@@ -30,7 +30,7 @@
   </div>
   <div ng-if="state==2">
     <h1>Your Character: {{character}}</h1>
-    <p ng-if="specialDescription==undefined">"Your Character Has No Special Abilities :(</p>
+    <p ng-if="specialDescription==undefined">Your Character Has No Special Abilities :(</p>
     <p ng-if="specialDescription!==undefined">{{specialDescription}}</p>
     <p ng-repeat="s in specialChars" ng-if="specialDescription!==undefined">{{s}}</p>
       <form onsubmit="">
@@ -38,8 +38,14 @@
             {{p}}
             <input id="quest-select-{{p}}" type="checkbox" name="player" value={{p}} disabled>
         </div>
-          <input id="quest-select-button" type="submit" value="choose team" disabled>
+          <input ng-click="submitQuestPick()" id="quest-select-button" type="submit" value="choose team" disabled>
       </form>
+      <h3>Vote:</h3>
+      <button id="btnApprove" disabled="true" ng-click="voteChoice(1)">Approve</button>
+      <button id="btnReject" disabled="true" ng-click="voteChoice(0)">Reject</button>
+
+      <h2 ng-if="voteApprove>voteReject && voteApprove !== -1">The Quest Is Approved {{voteApprove}} To {{voteReject}}</h2>
+      <h2 ng-if="voteApprove<=voteReject && voteApprove !== -1">The Quest Is Rejected {{voteReject}} To {{voteApprove}}</h2>
   </div>
 </div>
 

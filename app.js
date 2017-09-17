@@ -14,6 +14,7 @@ var sockets = {};
 var user_id_count = 1;
 var user_array = [];
 var socket_array = [];
+var voteCount = [0, 0];
 io.on('connection', function (socket) {
     var user_id = user_id_count;
     console.log("user_id: " + user_id);
@@ -50,6 +51,27 @@ io.on('connection', function (socket) {
         io.emit('game_update', game_data);
         socket_array[quest_giver].emit('pick_quest');
     });
+
+	socket.on('clientVote', function(choice) {
+		console.log(choice);
+		voteCount[choice.choice] = voteCount[choice.choice] + 1;
+		
+		console.log(voteCount[0] + " " + voteCount[1]);
+		if(voteCount[0] + voteCount[1] === user_array.length){
+			io.emit('serverVoteEnd', {voteCount: voteCount});
+			
+			if(voteCount[0] < voteCount[1]){
+            //quest goes
+	        }
+	        else{
+	        //quest doesnt go  
+        	}
+		}
+	});
+
+	socket.on('clientSubmitQuestPick', function(){
+		io.emit('serverVoteInit');
+	});
 
     socket.on('disconnect', function () {
         console.log("disconnect user_id: " + user_id);

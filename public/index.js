@@ -9,6 +9,8 @@ avalonApp.controller('appController', function($scope) {
     $scope.specialChars = [];
     $scope.players = [];
     $scope.player_index;
+    $scope.voteApprove = -1;
+    $scope.voteReject = -1;
     $scope.changeState = function(newState){
     	if(newState == 1){
             $scope.state = newState;
@@ -41,6 +43,7 @@ avalonApp.controller('appController', function($scope) {
         console.log(data.character);
         $scope.$apply();
     });
+
     socket.on('pick_quest', function () {
         for (var i = 0; i < $scope.players.length; i++){
             var id = "quest-select-" + $scope.players[i];
@@ -48,9 +51,32 @@ avalonApp.controller('appController', function($scope) {
         }
         document.getElementById("quest-select-button").disabled = false;
     });
+    $scope.submitQuestPick = function(){
+        socket.emit('clientSubmitQuestPick');
+    }
     socket.on('game_update', function (data) {
 
-    })
+    });
+    socket.on('serverVoteInit', function (){
+        console.log("vote init");
+        document.getElementById("btnApprove").disabled = false;
+        document.getElementById("btnReject").disabled = false;
+    });
+
+    $scope.voteChoice = function(choice){
+        document.getElementById("btnApprove").disabled = true;
+        document.getElementById("btnReject").disabled = true;
+        console.log(choice);
+        socket.emit('clientVote', {choice: choice});
+    }
+
+    socket.on('serverVoteEnd', function(voteCount){
+        console.log(voteCount);
+        console.log(voteCount.voteCount);
+        $scope.voteApprove = voteCount.voteCount[1];
+        $scope.voteReject = voteCount.voteCount[0];
+        $scope.$apply();
+    });
 });
 
 
