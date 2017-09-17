@@ -30,7 +30,9 @@
   </div>
   <div ng-if="state==2">
     <h1>Your Character: {{character}}</h1>
-    <p ng-repeat="s in special" ng-if="special!==undefined">{{s}}</p>
+    <p ng-if="specialDescription==undefined">"Your Character Has No Special Abilities :(</p>
+    <p ng-if="specialDescription!==undefined">{{specialDescription}}</p>
+    <p ng-repeat="s in specialChars" ng-if="specialDescription!==undefined">{{s}}</p>
   </div>
 </div>
 

@@ -38,8 +38,8 @@ io.on('connection', function (socket) {
         });
         assign_character();
         user_array.forEach(function (t, i) {
-        	console.log("name: " + t.name + ", character: " + t.character)
-            socket_array[i].emit('get_character', {character: t.character})
+        	console.log("name: " + t.name + ", character: " + t.character);
+            socket_array[i].emit('get_character', {character: t.character, special: t.special});
         });
     });
 
@@ -57,29 +57,21 @@ var evils = ["", "", "", ""];
 var merlin;
 
 function assign_character() {
-	console.log("Userid: " + user_array.length);
 	var limit = user_array.length,
     count = 0,
     lower_bound = 1,
     upper_bound = user_array.length,
     unique_random_numbers = [];
-    for(var i = 0; i < 5; i++){
-    	console.log(user_array[i].name + " " + user_array[i].id);
-    }
-    console.log("starting2");
-    console.log("user_array", user_array);
 
 	while (unique_random_numbers.length < limit) {
 	    var random_number = Math.round(Math.random()*(upper_bound - lower_bound) + lower_bound);
 	    if (unique_random_numbers.indexOf(random_number) == -1) { 
-	    	console.log("count: " + count);
 	        unique_random_numbers.push( random_number );
 	        if(limit <= 6){
 	        	user_array[count].character = char5_6[random_number-1];
 	        	if(random_number <= 2){
 	        		evils[random_number - 1] = user_array[count].name;
 	        	}
-	        	console.log(char5_6[random_number]); 
 	        }
 	        else{
 	        	user_array[count].character = char7_10[random_number-1];
@@ -89,62 +81,80 @@ function assign_character() {
 	        	else if(random_number === 9){
 	        		evils[4] = user_array[count].name;
 	        	}
-	        	else if(random_number === 3){
+	        	else if(random_number === 4){
 	        		merlin = user_array[count].name;
 	        	}
-	        	console.log(char7_10[random_number]);
 	        }
 	        count++;
 	    }
 	}
 	for(var i = 0; i < user_array.length; i++){
 		if(limit <= 6){
-			if(user_array[i].character == "Assassin"){
-				user_array[i].special = [evils[1]];
+			if(user_array[i].character === "Assassin"){
+				user_array[i].special = {description: "Your Teammate Is:", chars: [evils[1]]};
 			}
-			else if(user_array[i].character == "Minion of Mordred"){
-				user_array[i].special = [evils[0]];
+			else if(user_array[i].character === "Minion of Mordred"){
+				user_array[i].special = {description: "Your Teammates Is:", chars: [evils[0]]};
 			}
-			else if(user_array[i].character == "Merlin"){
-				user_array[i].special = evils;
+			else if(user_array[i].character === "Merlin"){
+				user_array[i].special = {description: "The Evils Are:", chars: shuffle([evils[0], evils[1]])};
 			}
 		}
 		else if(limit <=9){
 			if(user_array[i].character === "Mordred"){
-				user_array[i].special = [evils[1]];
+				user_array[i].special = {description: "Your Teammate Is:", chars: [evils[1]]};
 			}
 			else if(user_array[i].character === "Morgana"){
-				user_array[i].special = [evils[0]];
+				user_array[i].special = {description: "Your Teammate Is:", chars: [evils[0]]};
 			}
 			else if(user_array[i].character === "Oberon"){
-				user_array[i].special = [evils[0], evils[1]];
+				user_array[i].special = {description: "Your Teammates Are:", chars: shuffle([evils[0], evils[1]])};
 			}
 			else if(user_array[i].character === "Merlin"){
-				user_array[i].special = [evils[1], evils[2]];
+				user_array[i].special = {description: "The Evils Are:", chars: shuffle([evils[1], evils[2]])};
 			}
 			else if(user_array[i].character === "Percival"){
-				user_array[i].special = [evils[1], merlin];
+				user_array[i].special = {description: "One Is Merlin And The Other Is Morgana:", chars: shuffle([evils[1], merlin])};
 			}
 		}
 		else if(limit === 10){
 			if(user_array[i].character === "Mordred"){
-				user_array[i].special = [evils[1], evils[9]];
+				user_array[i].special = {description: "Your Teammates Are:",chars: shuffle([evils[1], evils[9]])};
 			}
 			else if(user_array[i].character === "Morgana"){
-				user_array[i].special = [evils[0], evils[9]];
+				user_array[i].special = {description: "Your Teammates Are:",chars: shuffle([evils[0], evils[9]])};
 			}
 			else if(user_array[i].character === "Oberon"){
-				user_array[i].special = [evils[0], evils[1], evils[9]];
+				user_array[i].special = {description: "Your Teammates Are:", chars: shuffle([evils[0], evils[1], evils[9]])};
 			}
 			else if(user_array[i].character === "Assassin"){
-				user_array[i].special = [evils[0], evils[1]];
+				user_array[i].special = {description: "Your Teammates Are:", chars: shuffle([evils[0], evils[1]])};
 			}
 			else if(user_array[i].character === "Merlin"){
-				user_array[i].special = [evils[1], evils[2], evils[9]];
+				user_array[i].special = {description: "The Evils Are:", chars: shuffle([evils[1], evils[2], evils[9]])};
 			}
 			else if(user_array[i].character === "Percival"){
-				user_array[i].special = [evils[1], merlin];
+				user_array[i].special = {description: "One Is Merlin And The Other Is Morgana:", chars: shuffle([evils[1], merlin])};
 			}
 		}
 	}
+}
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
 }
