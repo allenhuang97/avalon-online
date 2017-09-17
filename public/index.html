@@ -33,6 +33,13 @@
     <p ng-if="specialDescription==undefined">"Your Character Has No Special Abilities :(</p>
     <p ng-if="specialDescription!==undefined">{{specialDescription}}</p>
     <p ng-repeat="s in specialChars" ng-if="specialDescription!==undefined">{{s}}</p>
+      <form onsubmit="">
+        <div ng-repeat="p in players">
+            {{p}}
+            <input id="quest-select-{{p}}" type="checkbox" name="player" value={{p}} disabled>
+        </div>
+          <input id="quest-select-button" type="submit" value="choose team" disabled>
+      </form>
   </div>
 </div>
 

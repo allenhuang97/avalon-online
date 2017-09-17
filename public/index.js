@@ -8,6 +8,7 @@ avalonApp.controller('appController', function($scope) {
     $scope.specialDescription;
     $scope.specialChars = [];
     $scope.players = [];
+    $scope.player_index;
     $scope.changeState = function(newState){
     	if(newState == 1){
             $scope.state = newState;
@@ -26,7 +27,7 @@ avalonApp.controller('appController', function($scope) {
         if(newState == 2){
             socket.emit('start');
         }
-    }
+    };
     socket.on('get_character', function (data) {
         console.log(data);
         $scope.state = 2;
@@ -34,10 +35,21 @@ avalonApp.controller('appController', function($scope) {
         if(data.special !== undefined){
             $scope.specialDescription = data.special.description;
             $scope.specialChars = data.special.chars;
+            $scope.player_index = data.player_index;
             $scope.$apply();
         }
         console.log(data.character);
         $scope.$apply();
+    });
+    socket.on('pick_quest', function () {
+        for (var i = 0; i < $scope.players.length; i++){
+            var id = "quest-select-" + $scope.players[i];
+            document.getElementById(id).disabled = false;
+        }
+        document.getElementById("quest-select-button").disabled = false;
+    });
+    socket.on('game_update', function (data) {
+
     })
 });
 

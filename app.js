@@ -36,11 +36,19 @@ io.on('connection', function (socket) {
             user_array.push(users[t]);
             socket_array.push(sockets[t]);
         });
+        num_player = user_array.length;
         assign_character();
         user_array.forEach(function (t, i) {
         	console.log("name: " + t.name + ", character: " + t.character);
-            socket_array[i].emit('get_character', {character: t.character, special: t.special});
+            socket_array[i].emit('get_character', {character: t.character, special: t.special, player_index: i});
         });
+        init_quests();
+        quest_giver = Math.round(Math.random()*( num_player - 1 ));
+        var game_data = {quest_giver: quest_giver,
+            quests: quests,
+            current_quest: current_quest};
+        io.emit('game_update', game_data);
+        socket_array[quest_giver].emit('pick_quest');
     });
 
     socket.on('disconnect', function () {
@@ -50,6 +58,43 @@ io.on('connection', function (socket) {
         io.emit('update', {users: users});
     });
 });
+
+var num_player = 0;
+var quest_giver = 0;
+var current_quest = 0;
+
+
+function get_next_question_giver() {
+    if (quest_giver == user_array.length - 1) {
+        quest_giver = 0;
+    }
+    quest_giver++;
+    return quest_giver;
+}
+
+var quests = [];
+var quest_member_count = [];
+var quest_member_count_1 = [2, 3, 2, 3, 3];
+var quest_member_count_2 = [2, 3, 4, 3, 4];
+var quest_member_count_3 = [2, 3, 3, 4, 4];
+var quest_member_count_4 = [3, 4, 4, 5, 5];
+
+function init_quests() {
+    if (num_player == 5) {
+        quest_member_count = quest_member_count_1
+    } else if (num_player == 6) {
+        quest_member_count = quest_member_count_2
+    } else if (num_player == 7) {
+        quest_member_count = quest_member_count_3
+    } else {
+        quest_member_count = quest_member_count_4
+    }
+    for (var i = 0; i < 5; i++) {
+        quests.push({member_count: quest_member_count[i], state: 0, num_reject: 0}) // 0 - unfinished, 1 - passes, 2 - failed
+    }
+}
+
+
 
 var char5_6 = ["Assassin", "Minion of Mordred", "Merlin", "Loyal Servant of Arthur","Loyal Servant of Arthur","Loyal Servant of Arthur"];
 var char7_10 = ["Mordred", "Morgana", "Oberon", "Merlin", "Percival", "Loyal Servant of Arthur","Loyal Servant of Arthur", "Loyal Servant of Arthur","Loyal Servant of Arthur", "Assassin"];
