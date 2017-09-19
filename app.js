@@ -53,13 +53,9 @@ io.on('connection', function (socket) {
     });
 
 	socket.on('clientVote', function(choice) {
-		console.log(choice);
 		voteCount[choice.choice] = voteCount[choice.choice] + 1;
-		
-		console.log(voteCount[0] + " " + voteCount[1]);
 		if(voteCount[0] + voteCount[1] === user_array.length){
 			io.emit('serverVoteEnd', {voteCount: voteCount});
-			
 			if(voteCount[0] < voteCount[1]){
             //quest goes
 	        }
@@ -86,7 +82,7 @@ var quest_giver = 0;
 var current_quest = 0;
 
 
-function get_next_question_giver() {
+function get_next_quest_giver() {
     if (quest_giver == user_array.length - 1) {
         quest_giver = 0;
     }
