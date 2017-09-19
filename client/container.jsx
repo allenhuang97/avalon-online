@@ -21,6 +21,11 @@ class Container extends React.Component {
         		<Home setStateNum={this.setStateNum}/>
         	);
 		}
+        else if(this.state.num === 1) {
+            return (
+                <div></div>
+            );
+        }
 	}
 }
 ReactDOM.render(<Container/>, document.getElementById('app'));
