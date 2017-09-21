@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "webpack": "webpack",
-    "lint-client": "./node_modules/.bin/eslint client/*"
+    "lint-client": "./node_modules/.bin/eslint client/*",
+    "test": ""
   },
   "repository": {
     "type": "git",
