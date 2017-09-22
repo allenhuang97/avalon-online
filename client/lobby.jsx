@@ -1,7 +1,5 @@
 import React from 'react';
 
-var socket = io();
-
 class Lobby extends React.Component {
 	constructor(props) {
 		super(props);
@@ -10,8 +8,7 @@ class Lobby extends React.Component {
 
 	gameStart = () => {
 		if(this.props.players.length >= 5) {
-    	socket.emit('start');
-    	this.props.setStateNum(2);
+	    	this.props.emit('start');
     	}
     	else{
     		alert("You Must Have 5 or More Players to Start a Game");
@@ -23,11 +20,13 @@ class Lobby extends React.Component {
 			<div id="lobby">
 		    	<h2>Players In Lobby:</h2>
 		    	<table>
-	    			{this.props.players.map((player, i) => 
-	    				<tr key={i}>
-	    					<td key={i}>{player}</td>
-	    				</tr>
-	    			)}
+		    		<tbody>
+		    			{this.props.players.map((player, i) => 
+		    				<tr key={i}>
+		    					<td key={i}>{player}</td>
+		    				</tr>
+		    			)}
+	    			</tbody>
 		    	</table>
 		      <div className="type-1">
 	        		<a className="btn btn-3" onClick={this.gameStart}>

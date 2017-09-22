@@ -1,0 +1,13 @@
+#player {
+	text-align: center;
+    display: inline-block;
+    height: 100%;
+}
+#player img {
+	margin-top: 10%;
+	max-height: 50%;
+	max-width: 50%;
+	border-style: dashed;
+    border-radius: 25%;
+    border-color: black;
+}

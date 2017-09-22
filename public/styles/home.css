@@ -7,9 +7,6 @@ body{
 	font-family: sans-serif;
 
 }
-h1, h2{
-	margin: 0;
-}
 #home {
 	width: 100%;
 	height: 100%;
@@ -18,6 +15,7 @@ h1, h2{
 }
 #home h1{
  	font-weight: bold;
+ 	margin: 0;
 }
 #home input{
 	font-size: 25px;

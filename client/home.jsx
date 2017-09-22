@@ -1,7 +1,5 @@
 import React from 'react';
 
-var socket = io();
-
 class Home extends React.Component {
 	constructor(props) {
 		super(props);
@@ -11,7 +9,7 @@ class Home extends React.Component {
 	}
 
 	userJoin = () => {
-    	socket.emit('clientUserJoin', { name: this.state.name });
+    	this.props.emit('clientUserJoin', { name: this.state.name });
     	this.props.setStateNum(1);
     }
 

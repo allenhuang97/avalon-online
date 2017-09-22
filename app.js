@@ -41,7 +41,7 @@ io.on('connection', function (socket) {
         assign_character();
         user_array.forEach(function (t, i) {
         	console.log("name: " + t.name + ", character: " + t.character);
-            socket_array[i].emit('get_character', {character: t.character, special: t.special, player_index: i});
+            socket_array[i].emit('get_character', {character: t.character, special: t.special, player_index: i, player_name: t.name});
         });
         init_quests();
         quest_giver = Math.round(Math.random()*( num_player - 1 ));
@@ -154,50 +154,59 @@ function assign_character() {
 	for(var i = 0; i < user_array.length; i++){
 		if(limit <= 6){
 			if(user_array[i].character === "Assassin"){
-				user_array[i].special = {description: "Your Teammate Is:", chars: [evils[1]]};
+				user_array[i].special = {description: "Your Evil Teammate", chars: [evils[1]]};
 			}
 			else if(user_array[i].character === "Minion of Mordred"){
-				user_array[i].special = {description: "Your Teammates Is:", chars: [evils[0]]};
+				user_array[i].special = {description: "Your Evil Teammate", chars: [evils[0]]};
 			}
 			else if(user_array[i].character === "Merlin"){
-				user_array[i].special = {description: "The Evils Are:", chars: shuffle([evils[0], evils[1]])};
+				user_array[i].special = {description: "The Evils Players", chars: shuffle([evils[0], evils[1]])};
+			}
+			else{
+				user_array[i].special = {description: "Your Character Has No Special Abilities", chars: []};
 			}
 		}
 		else if(limit <=9){
 			if(user_array[i].character === "Mordred"){
-				user_array[i].special = {description: "Your Teammate Is:", chars: [evils[1]]};
+				user_array[i].special = {description: "Your Evil Teammate", chars: [evils[1]]};
 			}
 			else if(user_array[i].character === "Morgana"){
-				user_array[i].special = {description: "Your Teammate Is:", chars: [evils[0]]};
+				user_array[i].special = {description: "Your Evil Teammate", chars: [evils[0]]};
 			}
 			else if(user_array[i].character === "Oberon"){
-				user_array[i].special = {description: "Your Teammates Are:", chars: shuffle([evils[0], evils[1]])};
+				user_array[i].special = {description: "Your Evil Teammates", chars: shuffle([evils[0], evils[1]])};
 			}
 			else if(user_array[i].character === "Merlin"){
-				user_array[i].special = {description: "The Evils Are:", chars: shuffle([evils[1], evils[2]])};
+				user_array[i].special = {description: "The Evils Players", chars: shuffle([evils[1], evils[2]])};
 			}
 			else if(user_array[i].character === "Percival"){
-				user_array[i].special = {description: "One Is Merlin And The Other Is Morgana:", chars: shuffle([evils[1], merlin])};
+				user_array[i].special = {description: "Merlin And Morgana", chars: shuffle([evils[1], merlin])};
+			}
+			else{
+				user_array[i].special = {description: "Your Character Has No Special Abilities", chars: []};
 			}
 		}
 		else if(limit === 10){
 			if(user_array[i].character === "Mordred"){
-				user_array[i].special = {description: "Your Teammates Are:",chars: shuffle([evils[1], evils[9]])};
+				user_array[i].special = {description: "Your Evil Teammates",chars: shuffle([evils[1], evils[9]])};
 			}
 			else if(user_array[i].character === "Morgana"){
-				user_array[i].special = {description: "Your Teammates Are:",chars: shuffle([evils[0], evils[9]])};
+				user_array[i].special = {description: "Your Evil Teammates",chars: shuffle([evils[0], evils[9]])};
 			}
 			else if(user_array[i].character === "Oberon"){
-				user_array[i].special = {description: "Your Teammates Are:", chars: shuffle([evils[0], evils[1], evils[9]])};
+				user_array[i].special = {description: "Your Evil Teammates", chars: shuffle([evils[0], evils[1], evils[9]])};
 			}
 			else if(user_array[i].character === "Assassin"){
-				user_array[i].special = {description: "Your Teammates Are:", chars: shuffle([evils[0], evils[1]])};
+				user_array[i].special = {description: "Your Evil Teammates", chars: shuffle([evils[0], evils[1]])};
 			}
 			else if(user_array[i].character === "Merlin"){
-				user_array[i].special = {description: "The Evils Are:", chars: shuffle([evils[1], evils[2], evils[9]])};
+				user_array[i].special = {description: "The Evils Players", chars: shuffle([evils[1], evils[2], evils[9]])};
 			}
 			else if(user_array[i].character === "Percival"){
-				user_array[i].special = {description: "One Is Merlin And The Other Is Morgana:", chars: shuffle([evils[1], merlin])};
+				user_array[i].special = {description: "Merlin And Morgana:", chars: shuffle([evils[1], merlin])};
+			}
+			else{
+				user_array[i].special = {description: "Your Character Has No Special Abilities", chars: []};
 			}
 		}
 	}

@@ -1,0 +1,13 @@
+#character{
+	background-color: lightgray;
+	text-align: center;
+	float: right;
+	height: 70%;
+	width: 33%;
+}
+#character h1 {
+	height: 5%;
+}
+#character img {
+	height: 60%;
+}
