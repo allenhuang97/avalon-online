@@ -1,7 +1,9 @@
 #character{
 	background-color: lightgray;
 	text-align: center;
-	float: right;
+	position: absolute;
+	top: 0;
+	right: 0;
 	height: 70%;
 	width: 33%;
 }

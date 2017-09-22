@@ -33,6 +33,9 @@ class Container extends React.Component {
             this.setState({character: data});
             this.setStateNum(2);
         });
+         socket.on('game_update', function (data) {
+
+        });
         if(this.state.num === 0) {
         	return (
         		<Home setStateNum={this.setStateNum} emit={this.emit}/>

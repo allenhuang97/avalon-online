@@ -1,0 +1,23 @@
+#buttonFrame {
+	height: 10%;
+	width: 67%;
+	float: left;
+	border-style: solid
+	border-right-style: none;
+}
+#btnApprove, #btnReject {
+	width: 25%;
+	height: 50%;
+	margin-left: 8.75%;
+	margin-right: 8.75%;
+}
+#btnSubmitQuest {
+	width: 50%;
+	height: 50%;
+	margin-left: 17.5%;
+	margin-right: 17.5%;
+}
+#buttonFrame h3 {
+	margin: 0;
+	width: 15%;
+}
