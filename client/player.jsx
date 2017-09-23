@@ -8,25 +8,14 @@ class Player extends React.Component {
 		};
 	}
 	pickPlayer = () =>  {
-		if(picked === false){
-			this.setState({picked: true});
-		}
-		else{
-			this.setState({picked: false});
-		}
+		this.setState({picked: !this.state.picked});
 	}
 
 	render() {
-		/*var styleImg = 'dashed black';
-		var styleP = 'black';
-		if(picked === true){
-			styleImg = 'solid lime';
-			styleP = 'lime';
-		}*/
 		var widthPercent = (100/this.props.playerNum).toString() + "%";
 		return (
 			<div id="player" style={{width: widthPercent}}>
-				<a onClick={() => {this.pickPlayer()}}>
+				<a className={this.state.picked ? 'playerUnselected' : 'playerSelected'} onClick={()=>{this.pickPlayer()}}>
 					<img src="assets/portrait.png"/>
 					<p>{this.props.playerName}</p>
 				</a>

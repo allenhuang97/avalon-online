@@ -3,11 +3,25 @@
     display: inline-block;
     height: 100%;
 }
-#player img {
+.playerSelected img {
 	margin-top: 10%;
 	max-height: 50%;
 	max-width: 50%;
 	border-style: dashed;
     border-radius: 25%;
     border-color: black;
+}
+.playerUnselected img {
+	margin-top: 10%;
+	max-height: 50%;
+	max-width: 50%;
+	border-style: solid;
+    border-radius: 25%;
+    border-color: lime;
+}
+.playerSelected p {
+	color: black;
+}
+.playerUnselected p {
+	color: lime;
 }
