@@ -23,7 +23,7 @@ class ButtonFrame extends React.Component {
 		else{
 			return (
 				<div id="buttonFrame">
-					<h3 style="display: none">Vote</h3>
+					<h3>Vote</h3>
 					<button id="btnApprove">Approve</button>
 					<button id="btnReject">Reject</button>
 				</div>

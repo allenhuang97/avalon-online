@@ -14,11 +14,9 @@ class Player extends React.Component {
 	render() {
 		var widthPercent = (100/this.props.playerNum).toString() + "%";
 		return (
-			<div id="player" style={{width: widthPercent}}>
-				<a className={this.state.picked ? 'playerUnselected' : 'playerSelected'} onClick={()=>{this.pickPlayer()}}>
-					<img src="assets/portrait.png"/>
-					<p>{this.props.playerName}</p>
-				</a>
+			<div id="player" className={this.state.picked ? 'playerUnselected' : 'playerSelected'} style={{width: widthPercent}}>
+				<img onClick={()=>{this.pickPlayer()}} src="assets/portrait.png"/>
+				<p onClick={()=>{this.pickPlayer()}}>{this.props.playerName}</p>
 			</div>
 		);
 	}
