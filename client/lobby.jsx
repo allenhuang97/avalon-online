@@ -11,7 +11,7 @@ class Lobby extends React.Component {
 	    	this.props.emit('start');
     	}
     	else{
-    		alert("You Must Have 5 or More Players to Start a Game");
+    		alert("You must have at least 5 people to start a game.");
     	}
     }
 

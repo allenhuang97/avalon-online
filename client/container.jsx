@@ -13,7 +13,9 @@ class Container extends React.Component {
         this.state = {
             num: 0,
             players: [],
-            character: {}
+            character: {},
+            voteCount: [],
+            voteComplete: false
         }
     }
     
@@ -33,8 +35,13 @@ class Container extends React.Component {
             this.setState({character: data});
             this.setStateNum(2);
         });
-         socket.on('game_update', function (data) {
+        socket.on('game_update', (data) => {
 
+        });
+
+        socket.on('serverVoteEnd', (voteCount) => {
+            console.log(voteCount.voteCount)
+            this.setState({voteCount: voteCount.voteCount, voteComplete: true});
         });
         if(this.state.num === 0) {
         	return (
@@ -48,7 +55,7 @@ class Container extends React.Component {
         }
         else if(this.state.num === 2){
             return (
-                <Game setStateNum={this.setStateNum} emit={this.emit} character={this.state.character} players={this.state.players}/>
+                <Game setStateNum={this.setStateNum} emit={this.emit} character={this.state.character} players={this.state.players} voteCount={this.state.voteCount} voteComplete={this.state.voteComplete}/>
             );
         }
 	}

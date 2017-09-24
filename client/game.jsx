@@ -14,19 +14,15 @@ class Game extends React.Component {
 		};
 	}
 
-	setPickQuest = (val) => {
-		this.setState({isPickQuest: val});
-	}
-
-	setVoteQuest = (val) => {
-		this.setState({isVoteQuest: val});
+	setPickVoteQuest = (pick, vote) => {
+		this.setState({isPickQuest: pick, isVoteQuest: vote});
 	}
 
 	render() {
 		return (
 			<div id="game">
 				<Board emit = {this.props.emit}/>
-				<ButtonFrame emit = {this.props.emit} isPickQuest={this.state.isPickQuest} isPickVote={this.state.isPickVote} setPickQuest={this.setPickQuest} setVoteQuest={this.setVoteQuest} />
+				<ButtonFrame emit = {this.props.emit} isPickQuest={this.state.isPickQuest} isVoteQuest={this.state.isVoteQuest} setPickVoteQuest={this.setPickVoteQuest} voteCount={this.props.voteCount} voteComplete={this.props.voteComplete}/>
 				<Character character={this.props.character}/>
 				<PlayerFrame emit = {this.props.emit} players={this.props.players} isPickQuest={this.state.isPickQuest}/>
 			</div>

@@ -8,7 +8,9 @@ class Player extends React.Component {
 		};
 	}
 	pickPlayer = () =>  {
-		this.setState({picked: !this.state.picked});
+		if(this.props.isPickQuest === true){
+			this.setState({picked: !this.state.picked});
+		}
 	}
 
 	render() {
