@@ -1,27 +1,41 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Player extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			picked: false,
-		};
-	}
-	pickPlayer = () =>  {
-		if(this.props.isPickQuest === true){
-			this.setState({picked: !this.state.picked});
-		}
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      picked: false
+    };
+  }
 
-	render() {
-		var widthPercent = (100/this.props.playerNum).toString() + "%";
-		return (
-			<div id="player" className={this.state.picked ? 'playerUnselected' : 'playerSelected'} style={{width: widthPercent}}>
-				<img onClick={()=>{this.pickPlayer()}} src="assets/portrait.png"/>
-				<p onClick={()=>{this.pickPlayer()}}>{this.props.playerName}</p>
-			</div>
-		);
-	}
+  pickPlayer = () => {
+    if (this.props.isPickQuest) {
+      this.setState({ picked: !this.state.picked });
+    }
+  }
+
+  render() {
+    const widthPercent = `${(100 / this.props.playerNum).toString()}%`;
+    const className = this.state.picked ? 'playerUnselected' : 'playerSelected';
+
+    return (
+      <div id="player" className={className} style={{ width: widthPercent }}>
+        <a onClick={() => { this.pickPlayer(); }}>
+          <img src="assets/portrait.png" alt="" />
+        </a>
+        <a onClick={() => { this.pickPlayer(); }}>
+          {this.props.playerName}
+        </a>
+      </div>
+    );
+  }
 }
-export default Player;
 
+Player.propTypes = {
+  isPickQuest: PropTypes.bool.isRequired,
+  playerNum: PropTypes.number.isRequired,
+  playerName: PropTypes.string.isRequired
+};
+
+export default Player;

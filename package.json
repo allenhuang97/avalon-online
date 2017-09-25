@@ -4,7 +4,9 @@
   "description": "An online version of the game Avalon",
   "main": "app.js",
   "scripts": {
-    "webpack": "webpack",
+    "server": "nodemon app.js",
+    "client": "./node_modules/.bin/webpack --watch",
+    "dev": "nodemon app.js & ./node_modules/.bin/webpack --watch",
     "lint-client": "./node_modules/.bin/eslint client/*",
     "test": "jest"
   },
@@ -20,9 +22,11 @@
   "homepage": "https://github.com/allenhuang97/avalon-online#readme",
   "dependencies": {
     "express": "^4.15.4",
+    "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "socket.io": "^2.0.3"
+    "socket.io": "^2.0.3",
+    "socket.io-client": "^2.0.3"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -39,6 +43,7 @@
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.3.0",
     "jest": "^21.1.0",
+    "nodemon": "^1.12.1",
     "react-test-renderer": "^15.6.1",
     "webpack": "^3.6.0"
   }
