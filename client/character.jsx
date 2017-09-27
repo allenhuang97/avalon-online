@@ -4,18 +4,21 @@ import PropTypes from 'prop-types';
 class Character extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {};
   }
 
   render() {
+    const character = this.props.character;
+
     return (
       <div id="character">
-        <h1>{this.props.character.character}</h1>
+        <h1>{character.character}</h1>
         <img src="assets/assassin.jpg" alt="" />
-        <p>{this.props.character.special.description}</p>
+        <p>{character.special.description}</p>
         <table>
           <tbody>
-            {this.props.character.special.chars.map((char, i) =>
+            {character.special.chars.map((char, i) =>
               (
                 <tr key={i}>
                   <td key={i}>{char}</td>

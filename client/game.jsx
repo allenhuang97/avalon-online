@@ -9,9 +9,10 @@ import PlayerFrame from './playerFrame.jsx';
 class Game extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       isPickQuest: true,
-      isVoteQuest: true,
+      isVoteQuest: false
     };
   }
 
@@ -25,18 +26,18 @@ class Game extends React.Component {
   render() {
     return (
       <div id="game">
-        <Board emit={this.props.emit} />
+        <Board emitAction={this.props.emitAction} />
         <ButtonFrame
-          emit={this.props.emit}
+          emitAction={this.props.emitAction}
           isPickQuest={this.state.isPickQuest}
           isVoteQuest={this.state.isVoteQuest}
           setPickVoteQuest={this.setPickVoteQuest}
-          voteCount={this.props.voteCount}
+          playerVotes={this.props.playerVotes}
           voteComplete={this.props.voteComplete}
         />
         <Character character={this.props.character} />
         <PlayerFrame
-          emit={this.props.emit}
+          emitAction={this.props.emitAction}
           players={this.props.players}
           isPickQuest={this.state.isPickQuest}
         />
@@ -46,11 +47,11 @@ class Game extends React.Component {
 }
 
 Game.propTypes = {
-  emit: PropTypes.func.isRequired,
+  emitAction: PropTypes.func.isRequired,
   character: PropTypes.object.isRequired,
   players: PropTypes.array.isRequired,
   voteComplete: PropTypes.bool.isRequired,
-  voteCount: PropTypes.array.isRequired
+  playerVotes: PropTypes.object.isRequired
 };
 
 export default Game;

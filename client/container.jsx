@@ -6,25 +6,28 @@ import Home from './home.jsx';
 import Lobby from './lobby.jsx';
 import Game from './game.jsx';
 
+import { HOME_VIEW, LOBBY_VIEW, GAME_VIEW } from './constants/views.js';
+
 const socket = io();
 
 class Container extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      num: 0,
+      view: HOME_VIEW,
       players: [],
       character: {},
-      voteCount: [],
+      playerVotes: { accept: 0, reject: 0 },
       voteComplete: false,
     };
   }
 
-  setStateNum = (newStateNum) => {
-    this.setState({ num: newStateNum });
+  setView = (newView) => {
+    this.setState({ view: newView });
   }
 
-  emit = (client, data) => {
+  emitAction = (client, data) => {
     socket.emit(client, data);
   }
 
@@ -33,52 +36,54 @@ class Container extends React.Component {
       this.setState({ players: Object.keys(data.users).map(t => data.users[t].name) });
     });
 
-    socket.on('get_character', (data) => {
-      this.setState({ character: data });
-      this.setStateNum(2);
+    socket.on('get_character', (assignedCharacter) => {
+      this.setState({ character: assignedCharacter });
+      this.setView(GAME_VIEW);
     });
 
     socket.on('game_update', (data) => {
       console.log(data);
     });
 
-    socket.on('serverVoteEnd', (voteCount) => {
-      console.log(voteCount.voteCount);
+    socket.on('serverVoteEnd', (data) => {
+      console.log(data.voteCount);
       this.setState({
-        voteCount: voteCount.voteCount,
+        playerVotes: { accept: data.voteCount[0], reject: data.voteCount[1] },
         voteComplete: true
       });
     });
 
-    if (this.state.num === 0) {
-      return (
+    let component;
+
+    if (this.state.view === HOME_VIEW) {
+      component = (
         <Home
-          setStateNum={this.setStateNum}
-          emit={this.emit}
+          setView={this.setView}
+          emitAction={this.emitAction}
         />
       );
-    } else if (this.state.num === 1) {
-      return (
+    } else if (this.state.view === LOBBY_VIEW) {
+      component = (
         <Lobby
-          setStateNum={this.setStateNum}
-          emit={this.emit}
+          setView={this.setView}
+          emitAction={this.emitAction}
           players={this.state.players}
         />
       );
-    } else if (this.state.num === 2) {
-      return (
+    } else if (this.state.view === GAME_VIEW) {
+      component = (
         <Game
-          setStateNum={this.setStateNum}
-          emit={this.emit}
+          setView={this.setView}
+          emitAction={this.emitAction}
           character={this.state.character}
           players={this.state.players}
-          voteCount={this.state.voteCount}
+          playerVotes={this.state.playerVotes}
           voteComplete={this.state.voteComplete}
         />
       );
     }
 
-    return (<div />);
+    return component;
   }
 }
 

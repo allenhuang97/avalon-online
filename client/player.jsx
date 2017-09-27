@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 class Player extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       picked: false
     };
@@ -21,10 +22,10 @@ class Player extends React.Component {
 
     return (
       <div id="player" className={className} style={{ width: widthPercent }}>
-        <a onClick={() => { this.pickPlayer(); }}>
+        <a onClick={this.pickPlayer}>
           <img src="assets/portrait.png" alt="" />
         </a>
-        <a onClick={() => { this.pickPlayer(); }}>
+        <a onClick={this.pickPlayer}>
           {this.props.playerName}
         </a>
       </div>

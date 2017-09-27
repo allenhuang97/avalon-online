@@ -1,24 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { LOBBY_VIEW } from './constants/views.js';
+
 class Home extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      name: '',
+      playerName: ''
     };
   }
 
   userJoin = () => {
-    this.props.emit('clientUserJoin', { name: this.state.name });
-    this.props.setStateNum(1);
+    this.props.emitAction('clientUserJoin', { name: this.state.playerName });
+    this.props.setView(LOBBY_VIEW);
+  }
+
+  updateInput = (e) => {
+    this.setState({ playerName: e.target.value });
   }
 
   render() {
     return (
       <div id="home">
         <h1>Choose a Name:</h1>
-        <input id="btnChooseName" type="text" onChange={(e) => { this.setState({ name: e.target.value }); }} />
+        <input id="btnChooseName" type="text" onChange={this.updateInput} />
         <div className="type-1">
           <a className="btn btn-3" onClick={this.userJoin}>
             <span className="txt">Enter</span>
@@ -31,8 +38,8 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
-  emit: PropTypes.func.isRequired,
-  setStateNum: PropTypes.func.isRequired
+  emitAction: PropTypes.func.isRequired,
+  setView: PropTypes.func.isRequired
 };
 
 export default Home;

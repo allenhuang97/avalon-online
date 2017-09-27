@@ -4,12 +4,13 @@ import PropTypes from 'prop-types';
 class Lobby extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {};
   }
 
   gameStart = () => {
     if (this.props.players.length >= 5) {
-      this.props.emit('start');
+      this.props.emitAction('start');
     } else {
       // Replace with modal
       console.log('Not enough players, 5 is the minimum');
@@ -43,7 +44,7 @@ class Lobby extends React.Component {
 }
 
 Lobby.propTypes = {
-  emit: PropTypes.func.isRequired,
+  emitAction: PropTypes.func.isRequired,
   players: PropTypes.array.isRequired
 };
 

@@ -15,6 +15,7 @@ var user_id_count = 1;
 var user_array = [];
 var socket_array = [];
 var voteCount = [0, 0];
+
 io.on('connection', function (socket) {
     var user_id = user_id_count;
     console.log("user_id: " + user_id);
@@ -60,7 +61,7 @@ io.on('connection', function (socket) {
             //quest goes
 	        }
 	        else{
-	        //quest doesnt go  
+	        //quest doesnt go
         	}
 		}
 	});
@@ -128,7 +129,7 @@ function assign_character() {
 
 	while (unique_random_numbers.length < limit) {
 	    var random_number = Math.round(Math.random()*(upper_bound - lower_bound) + lower_bound);
-	    if (unique_random_numbers.indexOf(random_number) == -1) { 
+	    if (unique_random_numbers.indexOf(random_number) == -1) {
 	        unique_random_numbers.push( random_number );
 	        if(limit <= 6){
 	        	user_array[count].character = char5_6[random_number-1];

@@ -6,6 +6,7 @@ import Player from './player.jsx';
 class PlayerFrame extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {};
   }
 
@@ -18,8 +19,7 @@ class PlayerFrame extends React.Component {
             playerName={player}
             playerNum={this.props.players.length}
             isPickQuest={this.props.isPickQuest}
-          />
-          )
+          />)
         )}
       </div>
     );
