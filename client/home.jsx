@@ -23,7 +23,7 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div id="home">
+      <div className="home">
         <h1>Choose a Name:</h1>
         <input id="btnChooseName" type="text" onChange={this.updateInput} />
         <div className="type-1">

@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import io from 'socket.io-client';
 
 import Home from './home.jsx';
@@ -7,6 +6,8 @@ import Lobby from './lobby.jsx';
 import Game from './game.jsx';
 
 import { HOME_VIEW, LOBBY_VIEW, GAME_VIEW } from './constants/views.js';
+
+import './stylesheets/styles.scss';
 
 const socket = io();
 
@@ -53,17 +54,17 @@ class Container extends React.Component {
       });
     });
 
-    let component;
+    let view;
 
     if (this.state.view === HOME_VIEW) {
-      component = (
+      view = (
         <Home
           setView={this.setView}
           emitAction={this.emitAction}
         />
       );
     } else if (this.state.view === LOBBY_VIEW) {
-      component = (
+      view = (
         <Lobby
           setView={this.setView}
           emitAction={this.emitAction}
@@ -71,7 +72,7 @@ class Container extends React.Component {
         />
       );
     } else if (this.state.view === GAME_VIEW) {
-      component = (
+      view = (
         <Game
           setView={this.setView}
           emitAction={this.emitAction}
@@ -83,8 +84,8 @@ class Container extends React.Component {
       );
     }
 
-    return component;
+    return view;
   }
 }
 
-ReactDOM.render(<Container />, document.getElementById('app')); //eslint-disable-line
+export default Container;
