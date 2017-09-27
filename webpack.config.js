@@ -14,12 +14,18 @@ var config = {
     loaders: [
       {
         test: [/\.jsx?$/, /\.js?$/],
-        loader: 'babel-loader'
+        loader: 'babel-loader',
+        exclude: /node_modules/
       },
       {
         test: /\.scss$/,
         loaders: ['style-loader', 'css-loader', 'sass-loader']
       }
+    ]
+  },
+  resolve: {
+    modules: [
+      'node_modules'
     ]
   },
   devtool: 'source-map'

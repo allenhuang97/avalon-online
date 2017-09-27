@@ -1,20 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Modal from 'react-modal';
 
 class Lobby extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      showPlayerRequirementModal: false
+    };
   }
 
   gameStart = () => {
     if (this.props.players.length >= 5) {
       this.props.emitAction('start');
     } else {
-      // Replace with modal
-      console.log('Not enough players, 5 is the minimum');
+      this.toggleModal();
     }
+  }
+
+  toggleModal = () => {
+    this.setState({ showPlayerRequirementModal: !this.state.showPlayerRequirementModal });
   }
 
   render() {
@@ -38,6 +44,13 @@ class Lobby extends React.Component {
             <span className="round"><i className="fa fa-chevron-right" /></span>
           </a>
         </div>
+        <Modal
+          isOpen={this.state.showPlayerRequirementModal}
+          contentLabel="Not enough players"
+        >
+          <h5>Not enough players, 5 is the minimum</h5>
+          <button type="button" onClick={this.toggleModal}>Ok</button>
+        </Modal>
       </div>
     );
   }
