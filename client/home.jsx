@@ -24,13 +24,16 @@ class Home extends React.Component {
   render() {
     return (
       <div className="home">
-        <h1>Choose a Name:</h1>
-        <input id="btnChooseName" type="text" onChange={this.updateInput} />
-        <div className="type-1">
-          <a className="btn btn-3" onClick={this.userJoin}>
-            <span className="txt">Enter</span>
-            <span className="round"><i className="fa fa-chevron-right" /></span>
-          </a>
+        <div className="home-form">
+          <h1>Welcome to Avalon online</h1>
+          <p className="home-form-label">Enter a name to join the room</p>
+          <input className="input-name" type="text" placeholder="nickname" onChange={this.updateInput} />
+          <div className="type-1">
+            <a className="btn btn-3" onClick={this.userJoin}>
+              <span className="txt">Enter</span>
+              <span className="round"><i className="fa fa-chevron-right" /></span>
+            </a>
+          </div>
         </div>
       </div>
     );

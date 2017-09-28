@@ -1,0 +1,19 @@
+#lobby {
+	text-align: center;
+	height: 100%;
+	width: 100%;
+}
+#lobby table {
+	border-collapse: collapse;
+	text-align-last: center;
+	width: max-content;
+	margin: 25px auto 0 auto;
+}
+#lobby td {
+	border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+#lobby h2 {
+	margin: 0;
+}

@@ -7,7 +7,7 @@ import Game from './game.jsx';
 
 import { HOME_VIEW, LOBBY_VIEW, GAME_VIEW } from './constants/views.js';
 
-import './stylesheets/styles.scss';
+import './stylesheets/main.scss';
 
 const socket = io();
 

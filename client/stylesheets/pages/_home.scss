@@ -1,0 +1,50 @@
+.home {
+  display: flex;
+  align-items: center;
+  flex-direction: column; 
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient($home-bgcolor 50%, white 50%);
+  //background-color: $home-bgcolor;
+  
+  .home-form {
+    transition: all 0.3s ease;
+    background-color: $home-form;
+    border-radius: 15px;
+    border: 3px solid $home-form-border;
+    box-shadow: 0px 3px 3px $box-shadow;
+    padding: 30px 25px 30px 25px;
+    position: relative;
+    text-align: center;
+    max-width: 350px;
+
+    h1 {
+      font-weight: bold;
+      font-family: $sans-serif;
+      margin: 0;
+      padding-bottom: 20px;
+    }
+
+    .home-form-label {
+      text-align: left;
+      padding-left: 10px;
+    }
+  
+    .input-name {
+      padding: 15px 10px;
+      font-size: 1em;
+      border: 2px solid $input-border;
+      border-radius: 5px;
+      width: 90%;
+    }
+
+    &:hover {
+      box-shadow: 0px 10px 10px $box-shadow;
+    }
+  }
+}
+
+.type-1 {
+  margin-top: 25px;
+}
