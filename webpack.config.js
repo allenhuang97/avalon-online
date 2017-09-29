@@ -25,6 +25,7 @@ var config = {
   },
   resolve: {
     modules: [
+      path.resolve(__dirname, 'client'),
       'node_modules'
     ]
   },

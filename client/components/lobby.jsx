@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 
+import { emitAction } from 'sockets.js';
+
 class Lobby extends React.Component {
   constructor(props) {
     super(props);
@@ -13,7 +15,7 @@ class Lobby extends React.Component {
 
   gameStart = () => {
     if (this.props.players.length >= 5) {
-      this.props.emitAction('start');
+      emitAction('startGameClient', null);
     } else {
       this.toggleModal();
     }
@@ -57,7 +59,6 @@ class Lobby extends React.Component {
 }
 
 Lobby.propTypes = {
-  emitAction: PropTypes.func.isRequired,
   players: PropTypes.array.isRequired
 };
 

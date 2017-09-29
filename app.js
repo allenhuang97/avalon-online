@@ -24,11 +24,11 @@ io.on('connection', function (socket) {
     var user = {id: user_id};
     sockets[user_id] = socket;
 
-    socket.on('clientUserJoin', function (data) {
+    socket.on('userJoin', function (data) {
         console.log("user_name: " + data.name);
         user.name = data.name;
         users[user_id] = user;
-        io.emit('update', {users: users});
+        io.emit('lobbyUpdated', {users: users});
     });
 
     socket.on('start', function () {

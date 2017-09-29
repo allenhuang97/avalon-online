@@ -1,34 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { emitAction } from 'sockets.js';
+
 class ButtonFrame extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+
+    };
   }
 
   submitQuestPick = () => {
-    this.props.emitAction('clientSubmitQuestPick');
+    // If not the correct number of players are chosen, show modal
+    emitAction('clientSubmitQuestPick', null);
     this.props.setPickVoteQuest(false, true);
   }
 
   voteChoice = (choice) => {
-    this.props.emitAction('clientVote', { choice });
+    emitAction('submitVote', { choice });
     this.props.setPickVoteQuest(false, false);
   }
 
   render() {
     let buttonFrame;
 
-    if (this.props.isPickQuest) {
+    if (this.props.pickingQuest) {
       buttonFrame = (
         <div id="buttonFrame">
           <h3>Choose Quest</h3>
           <button id="btnSubmitQuest" onClick={this.submitQuestPick}>Choose Quest</button>
         </div>
       );
-    } else if (this.props.isVoteQuest) {
+    } else if (this.props.votingQuest) {
       buttonFrame = (
         <div id="buttonFrame">
           <h3>Vote</h3>
@@ -60,10 +65,9 @@ class ButtonFrame extends React.Component {
 }
 
 ButtonFrame.propTypes = {
-  emitAction: PropTypes.func.isRequired,
   setPickVoteQuest: PropTypes.func.isRequired,
-  isPickQuest: PropTypes.bool.isRequired,
-  isVoteQuest: PropTypes.bool.isRequired,
+  pickingQuest: PropTypes.bool.isRequired,
+  votingQuest: PropTypes.bool.isRequired,
   voteComplete: PropTypes.bool.isRequired,
   playerVotes: PropTypes.object.isRequired
 };

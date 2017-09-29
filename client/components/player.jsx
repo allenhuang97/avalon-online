@@ -11,13 +11,14 @@ class Player extends React.Component {
   }
 
   pickPlayer = () => {
-    if (this.props.isPickQuest) {
+    if (this.props.pickingQuest) {
       this.setState({ picked: !this.state.picked });
+      this.props.updateSelectedPlayers(this.props.index);
     }
   }
 
   render() {
-    const widthPercent = `${(100 / this.props.playerNum).toString()}%`;
+    const widthPercent = `${(100 / this.props.numPlayers).toString()}%`;
     const className = this.state.picked ? 'playerUnselected' : 'playerSelected';
 
     return (
@@ -34,9 +35,11 @@ class Player extends React.Component {
 }
 
 Player.propTypes = {
-  isPickQuest: PropTypes.bool.isRequired,
-  playerNum: PropTypes.number.isRequired,
-  playerName: PropTypes.string.isRequired
+  pickingQuest: PropTypes.bool.isRequired,
+  numPlayers: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
+  playerName: PropTypes.string.isRequired,
+  updateSelectedPlayers: PropTypes.func.isRequired
 };
 
 export default Player;

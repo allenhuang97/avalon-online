@@ -11,35 +11,33 @@ class Game extends React.Component {
     super(props);
 
     this.state = {
-      isPickQuest: true,
-      isVoteQuest: false
+      pickingQuest: true,
+      votingQuest: false
     };
   }
 
   setPickVoteQuest = (pick, vote) => {
     this.setState({
-      isPickQuest: pick,
-      isVoteQuest: vote
+      pickingQuest: pick,
+      votingQuest: vote
     });
   }
 
   render() {
     return (
       <div id="game">
-        <Board emitAction={this.props.emitAction} />
+        <Board />
         <ButtonFrame
-          emitAction={this.props.emitAction}
-          isPickQuest={this.state.isPickQuest}
-          isVoteQuest={this.state.isVoteQuest}
+          pickingQuest={this.state.pickingQuest}
+          votingQuest={this.state.votingQuest}
           setPickVoteQuest={this.setPickVoteQuest}
           playerVotes={this.props.playerVotes}
           voteComplete={this.props.voteComplete}
         />
         <Character character={this.props.character} />
         <PlayerFrame
-          emitAction={this.props.emitAction}
           players={this.props.players}
-          isPickQuest={this.state.isPickQuest}
+          pickingQuest={this.state.pickingQuest}
         />
       </div>
     );
@@ -47,7 +45,6 @@ class Game extends React.Component {
 }
 
 Game.propTypes = {
-  emitAction: PropTypes.func.isRequired,
   character: PropTypes.object.isRequired,
   players: PropTypes.array.isRequired,
   voteComplete: PropTypes.bool.isRequired,

@@ -7,7 +7,18 @@ class PlayerFrame extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      selectedPlayers: [] // Boolean array of players that are selected
+    };
+  }
+
+  updateSelectedPlayers = (index) => {
+    const selectedPlayers = this.state.selectedPlayers;
+
+    selectedPlayers[index] = !selectedPlayers[index];
+    this.setState({ selectedPlayers: selectedPlayers });
+
+    // Emit action, change questPickPlayerClient to updateQuestPickSelection?
   }
 
   render() {
@@ -16,9 +27,11 @@ class PlayerFrame extends React.Component {
         {this.props.players.map((player, i) =>
           (<Player
             key={i}
+            index={i}
             playerName={player}
-            playerNum={this.props.players.length}
+            numPlayers={this.props.players.length}
             isPickQuest={this.props.isPickQuest}
+            updateSelectedPlayers={this.updateSelectedPlayers}
           />)
         )}
       </div>
