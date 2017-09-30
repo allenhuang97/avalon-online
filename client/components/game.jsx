@@ -6,20 +6,53 @@ import ButtonFrame from './buttonFrame.jsx';
 import Character from './character.jsx';
 import PlayerFrame from './playerFrame.jsx';
 
+import {
+  questPlayersUpdated,
+  voteStarted,
+  voteFinished,
+  questFinished
+} from 'sockets.js';
+
 class Game extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       pickingQuest: true,
-      votingQuest: false
+      votingQuest: false,
+      onQuest: false,
+      currentQuestPlayers: [],
+      playerVotes: { accept: 0, reject: 0 },
+      voteComplete: false,
+      questNum: 0,
+      questResults: []
     };
+
+    this.subscribeToSocketEvents();
   }
 
-  setPickVoteQuest = (pick, vote) => {
-    this.setState({
-      pickingQuest: pick,
-      votingQuest: vote
+  subscribeToSocketEvents = () => {
+    questPlayersUpdated((data) => {
+      this.setState({ currentQuestPlayers: data });
+    });
+
+    voteStarted(() => {
+      this.setState({ votingQuest: true });
+    });
+
+    voteFinished((data) => {
+      this.setState({
+        playerVotes: { accept: data.voteCount[0], reject: data.voteCount[1] },
+        voteComplete: true,
+        onQuest: data.voteCount[0] > data.voteCount[1]
+      });
+    });
+
+    questFinished(() => {
+      this.setState({
+        pickingQuest: true,
+        votingQuest: false
+      });
     });
   }
 
@@ -31,8 +64,8 @@ class Game extends React.Component {
           pickingQuest={this.state.pickingQuest}
           votingQuest={this.state.votingQuest}
           setPickVoteQuest={this.setPickVoteQuest}
-          playerVotes={this.props.playerVotes}
-          voteComplete={this.props.voteComplete}
+          playerVotes={this.state.playerVotes}
+          voteComplete={this.state.voteComplete}
         />
         <Character character={this.props.character} />
         <PlayerFrame
@@ -45,10 +78,8 @@ class Game extends React.Component {
 }
 
 Game.propTypes = {
-  character: PropTypes.object.isRequired,
   players: PropTypes.array.isRequired,
-  voteComplete: PropTypes.bool.isRequired,
-  playerVotes: PropTypes.object.isRequired
+  character: PropTypes.object.isRequired
 };
 
 export default Game;

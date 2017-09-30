@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import {
+  SUBMIT_VOTE,
+  SUBMIT_QUEST_SELECTION
+} from 'constants/clientEvents.js';
+
 import { emitAction } from 'sockets.js';
 
 class ButtonFrame extends React.Component {
@@ -14,13 +19,13 @@ class ButtonFrame extends React.Component {
 
   submitQuestPick = () => {
     // If not the correct number of players are chosen, show modal
-    emitAction('clientSubmitQuestPick', null);
-    this.props.setPickVoteQuest(false, true);
+    emitAction(SUBMIT_QUEST_SELECTION, null);
+    // this.props.setPickVoteQuest(false, true);
   }
 
-  voteChoice = (choice) => {
-    emitAction('submitVote', { choice });
-    this.props.setPickVoteQuest(false, false);
+  submitVote = (vote) => {
+    emitAction(SUBMIT_VOTE, { vote });
+    // this.props.setPickVoteQuest(false, false);
   }
 
   render() {
@@ -30,15 +35,15 @@ class ButtonFrame extends React.Component {
       buttonFrame = (
         <div id="buttonFrame">
           <h3>Choose Quest</h3>
-          <button id="btnSubmitQuest" onClick={this.submitQuestPick}>Choose Quest</button>
+          <button id="btnSubmitQuest" onClick={this.submitQuestPick}>Submit Selection</button>
         </div>
       );
     } else if (this.props.votingQuest) {
       buttonFrame = (
         <div id="buttonFrame">
           <h3>Vote</h3>
-          <button id="btnApprove" onClick={this.voteChoice(1)}>Approve</button>
-          <button id="btnReject" onClick={this.voteChoice(0)}>Reject</button>
+          <button id="btnApprove" onClick={this.submitVote(1)}>Approve</button>
+          <button id="btnReject" onClick={this.submitVote(0)}>Reject</button>
         </div>
       );
     } else if (this.props.voteComplete) {
@@ -65,7 +70,6 @@ class ButtonFrame extends React.Component {
 }
 
 ButtonFrame.propTypes = {
-  setPickVoteQuest: PropTypes.func.isRequired,
   pickingQuest: PropTypes.bool.isRequired,
   votingQuest: PropTypes.bool.isRequired,
   voteComplete: PropTypes.bool.isRequired,

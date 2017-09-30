@@ -5,7 +5,7 @@ import Lobby from './lobby.jsx';
 import Game from './game.jsx';
 
 import { LANDING_PAGE, LOBBY, GAME } from 'constants/views.js';
-import { lobbyUpdated, gameStarted, voteFinished } from 'sockets.js';
+import { lobbyUpdated, gameStarted } from 'sockets.js';
 
 import 'stylesheets/main.scss';
 
@@ -16,9 +16,7 @@ class App extends React.Component {
     this.state = {
       view: LANDING_PAGE,
       players: [],
-      character: {},
-      playerVotes: { accept: 0, reject: 0 },
-      voteComplete: false,
+      character: {}
     };
 
     this.subscribeToSocketEvents();
@@ -36,13 +34,6 @@ class App extends React.Component {
     gameStarted((data) => {
       this.setState({ character: data });
       this.setView(GAME);
-    });
-
-    voteFinished((data) => {
-      this.setState({
-        playerVotes: { accept: data.voteCount[0], reject: data.voteCount[1] },
-        voteComplete: true
-      });
     });
   }
 
