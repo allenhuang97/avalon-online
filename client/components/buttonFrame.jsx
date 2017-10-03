@@ -12,20 +12,16 @@ class ButtonFrame extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-
-    };
+    this.state = {};
   }
 
   submitQuestPick = () => {
     // If not the correct number of players are chosen, show modal
     emitAction(SUBMIT_QUEST_SELECTION, null);
-    // this.props.setPickVoteQuest(false, true);
   }
 
   submitVote = (vote) => {
     emitAction(SUBMIT_VOTE, { vote });
-    // this.props.setPickVoteQuest(false, false);
   }
 
   render() {

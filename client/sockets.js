@@ -3,6 +3,7 @@ import io from 'socket.io-client';
 import {
   LOBBY_UPDATED,
   GAME_STARTED,
+  GAME_SETUP_COMPLETE,
   VOTE_STARTED,
   VOTE_FINISHED,
   QUEST_PLAYERS_UPDATED,
@@ -22,7 +23,11 @@ export function lobbyUpdated(callback) {
 }
 
 export function gameStarted(callback) {
-  socket.on(GAME_STARTED, assignedCharacter => callback(assignedCharacter));
+  socket.on(GAME_STARTED, callback);
+}
+
+export function gameSetupComplete(callback) {
+  socket.on(GAME_SETUP_COMPLETE, data => callback(data));
 }
 
 export function questPlayersUpdated(callback) {
@@ -30,7 +35,7 @@ export function questPlayersUpdated(callback) {
 }
 
 export function voteStarted(callback) {
-  socket.on(VOTE_STARTED, callback());
+  socket.on(VOTE_STARTED, callback);
 }
 
 export function voteFinished(callback) {

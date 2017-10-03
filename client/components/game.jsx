@@ -7,6 +7,7 @@ import Character from './character.jsx';
 import PlayerFrame from './playerFrame.jsx';
 
 import {
+  gameSetupComplete,
   questPlayersUpdated,
   voteStarted,
   voteFinished,
@@ -24,20 +25,33 @@ class Game extends React.Component {
       currentQuestPlayers: [],
       playerVotes: { accept: 0, reject: 0 },
       voteComplete: false,
-      questNum: 0,
-      questResults: []
+      questNum: 1,
+      questResults: [],
+      questPicker: {},
+      character: { character: '', special: { description: '', chars: [] } }
     };
 
     this.subscribeToSocketEvents();
   }
 
   subscribeToSocketEvents = () => {
+    gameSetupComplete((data) => {
+      console.log('assigning characters and quest picker', data);
+      this.setState({
+        character: data,
+        questPicker: null // Replace with actual
+      });
+    });
+
     questPlayersUpdated((data) => {
       this.setState({ currentQuestPlayers: data });
     });
 
     voteStarted(() => {
-      this.setState({ votingQuest: true });
+      this.setState({
+        votingQuest: true,
+        pickingQuest: false
+      });
     });
 
     voteFinished((data) => {
@@ -48,14 +62,18 @@ class Game extends React.Component {
       });
     });
 
-    questFinished(() => {
+    questFinished((data) => {
       this.setState({
         pickingQuest: true,
-        votingQuest: false
+        votingQuest: false,
+        questResults: this.state.questResults + data,
+        questPicker: null // Replace with actual data
       });
     });
   }
 
+  // TODO: add modals for voting, questing, and showing results
+  // Setup toggling of the modals based on game state
   render() {
     return (
       <div id="game">
@@ -63,11 +81,10 @@ class Game extends React.Component {
         <ButtonFrame
           pickingQuest={this.state.pickingQuest}
           votingQuest={this.state.votingQuest}
-          setPickVoteQuest={this.setPickVoteQuest}
           playerVotes={this.state.playerVotes}
           voteComplete={this.state.voteComplete}
         />
-        <Character character={this.props.character} />
+        <Character character={this.state.character} />
         <PlayerFrame
           players={this.props.players}
           pickingQuest={this.state.pickingQuest}
@@ -78,8 +95,7 @@ class Game extends React.Component {
 }
 
 Game.propTypes = {
-  players: PropTypes.array.isRequired,
-  character: PropTypes.object.isRequired
+  players: PropTypes.array.isRequired
 };
 
 export default Game;

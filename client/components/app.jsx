@@ -16,7 +16,6 @@ class App extends React.Component {
     this.state = {
       view: LANDING_PAGE,
       players: [],
-      character: {}
     };
 
     this.subscribeToSocketEvents();
@@ -31,8 +30,7 @@ class App extends React.Component {
       this.setState({ players: Object.keys(data.users).map(t => data.users[t].name) });
     });
 
-    gameStarted((data) => {
-      this.setState({ character: data });
+    gameStarted(() => {
       this.setView(GAME);
     });
   }
@@ -54,11 +52,7 @@ class App extends React.Component {
     } else if (this.state.view === GAME) {
       view = (
         <Game
-          setView={this.setView}
-          character={this.state.character}
           players={this.state.players}
-          playerVotes={this.state.playerVotes}
-          voteComplete={this.state.voteComplete}
         />
       );
     }

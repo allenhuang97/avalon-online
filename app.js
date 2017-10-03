@@ -31,7 +31,8 @@ io.on('connection', function (socket) {
         io.emit('lobbyUpdated', {users: users});
     });
 
-    socket.on('start', function () {
+    socket.on('startGame', function () {
+    	io.emit('gameStarted');
         user_array = [];
         socket_array = [];
         Object.keys(users).forEach(function (t) {
@@ -42,14 +43,14 @@ io.on('connection', function (socket) {
         assign_character();
         user_array.forEach(function (t, i) {
         	console.log("name: " + t.name + ", character: " + t.character);
-            socket_array[i].emit('get_character', {character: t.character, special: t.special, player_index: i, player_name: t.name});
+            socket_array[i].emit('gameSetupComplete', {character: t.character, special: t.special, player_index: i, player_name: t.name});
         });
         init_quests();
         quest_giver = Math.round(Math.random()*( num_player - 1 ));
         var game_data = {quest_giver: quest_giver,
             quests: quests,
             current_quest: current_quest};
-        io.emit('game_update', game_data);
+        // io.emit('gameSetupComplete', game_data);
         socket_array[quest_giver].emit('pick_quest');
     });
 
