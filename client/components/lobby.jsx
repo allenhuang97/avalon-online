@@ -45,6 +45,10 @@ class Lobby extends React.Component {
         <Modal
           isOpen={this.state.showPlayerRequirementModal}
           contentLabel="Not enough players"
+          className={{
+            base: 'modal',
+            afterOpen: 'modal-open'
+          }}
         >
           <h5>Not enough players, 5 is the minimum</h5>
           <button type="button" onClick={this.toggleModal}>Ok</button>

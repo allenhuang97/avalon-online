@@ -59,6 +59,10 @@ class LandingPage extends React.Component {
         <Modal
           isOpen={this.state.showMaxPlayerModal}
           contentLabel="Too many people"
+          className={{
+            base: 'modal',
+            afterOpen: 'modal-open'
+          }}
         >
           <h5>This room is already full. Please wait for someone to leave.</h5>
           <button type="button" onClick={this.toggleMaxPlayerModal}>Ok</button>
@@ -66,6 +70,10 @@ class LandingPage extends React.Component {
         <Modal
           isOpen={this.state.showEmptyNameModal}
           contentLabel="Empty name"
+          className={{
+            base: 'modal',
+            afterOpen: 'modal-open'
+          }}
         >
           <h5>You must enter a name.</h5>
           <button type="button" onClick={this.toggleEmptyNameModal}>Ok</button>
