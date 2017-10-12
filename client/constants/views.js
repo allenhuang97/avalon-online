@@ -1,3 +1,3 @@
-export const HOME_VIEW = 'HOME_VIEW';
-export const LOBBY_VIEW = 'LOBBY_VIEW';
-export const GAME_VIEW = 'GAME_VIEW';
+export const LANDING_PAGE = 'LANDING_PAGE';
+export const LOBBY = 'LOBBY';
+export const GAME = 'GAME';

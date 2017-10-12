@@ -16,9 +16,10 @@ class PlayerFrame extends React.Component {
         {this.props.players.map((player, i) =>
           (<Player
             key={i}
+            index={i}
             playerName={player}
-            playerNum={this.props.players.length}
-            isPickQuest={this.props.isPickQuest}
+            numPlayers={this.props.players.length}
+            pickingQuest={this.props.pickingQuest}
           />)
         )}
       </div>
@@ -27,7 +28,7 @@ class PlayerFrame extends React.Component {
 }
 
 PlayerFrame.propTypes = {
-  isPickQuest: PropTypes.bool.isRequired,
+  pickingQuest: PropTypes.bool.isRequired,
   players: PropTypes.array.isRequired,
 };
 

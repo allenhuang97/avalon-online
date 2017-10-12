@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { emitAction, questPlayersUpdated } from 'sockets.js';
+import { UPDATE_QUEST_PLAYERS } from 'constants/clientEvents.js';
+
 class Player extends React.Component {
   constructor(props) {
     super(props);
@@ -8,16 +11,28 @@ class Player extends React.Component {
     this.state = {
       picked: false
     };
+
+    this.subscribeToSocketEvents();
   }
 
   pickPlayer = () => {
-    if (this.props.isPickQuest) {
-      this.setState({ picked: !this.state.picked });
+    if (this.props.pickingQuest) {
+      emitAction(UPDATE_QUEST_PLAYERS, this.props.index);
     }
   }
 
+  subscribeToSocketEvents = () => {
+    questPlayersUpdated((playersOnQuest) => {
+      playersOnQuest.forEach((player) => {
+        if (player.index === this.props.index) {
+          this.setState({ picked: true });
+        }
+      });
+    });
+  }
+
   render() {
-    const widthPercent = `${(100 / this.props.playerNum).toString()}%`;
+    const widthPercent = `${(100 / this.props.numPlayers).toString()}%`;
     const className = this.state.picked ? 'playerUnselected' : 'playerSelected';
 
     return (
@@ -34,8 +49,9 @@ class Player extends React.Component {
 }
 
 Player.propTypes = {
-  isPickQuest: PropTypes.bool.isRequired,
-  playerNum: PropTypes.number.isRequired,
+  pickingQuest: PropTypes.bool.isRequired,
+  numPlayers: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
   playerName: PropTypes.string.isRequired
 };
 

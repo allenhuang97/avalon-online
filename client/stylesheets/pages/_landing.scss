@@ -1,18 +1,18 @@
-.home {
+.landing {
   display: flex;
   align-items: center;
   flex-direction: column; 
   justify-content: center;
   width: 100%;
   height: 100%;
-  background: linear-gradient($home-bgcolor 50%, white 50%);
-  //background-color: $home-bgcolor;
+  background: linear-gradient($landing-bgcolor 50%, white 50%);
+  //background-color: $landing-bgcolor;
   
-  .home-form {
+  .landing-form {
     transition: all 0.3s ease;
-    background-color: $home-form;
+    background-color: $landing-form;
     border-radius: 15px;
-    border: 3px solid $home-form-border;
+    border: 3px solid $landing-form-border;
     box-shadow: 0px 3px 3px $box-shadow;
     padding: 30px 25px 30px 25px;
     position: relative;
@@ -26,7 +26,7 @@
       padding-bottom: 20px;
     }
 
-    .home-form-label {
+    .landing-form-label {
       text-align: left;
       padding-left: 10px;
     }
@@ -43,8 +43,4 @@
       box-shadow: 0px 10px 10px $box-shadow;
     }
   }
-}
-
-.type-1 {
-  margin-top: 25px;
 }

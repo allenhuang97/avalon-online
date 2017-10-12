@@ -1,5 +1,8 @@
 // Import stylesheets for all the components here
 @import 'base/colors';
 @import 'base/typography';
+@import 'components/buttons';
+@import 'components/modal';
 
-@import 'pages/home';
+@import 'pages/landing';
+@import 'pages/lobby';

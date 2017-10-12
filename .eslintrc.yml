@@ -6,3 +6,6 @@ rules:
   react/no-array-index-key: 'off'
   jsx-a11y/no-static-element-interactions: 'off'
   import/extensions: 'off'
+  import/first: 'off'
+settings:
+  import/resolver: eslint-import-resolver-webpack

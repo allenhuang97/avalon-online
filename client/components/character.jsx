@@ -10,6 +10,7 @@ class Character extends React.Component {
 
   render() {
     const character = this.props.character;
+    // const image = character.name.toLowerCase(); Use this once we have images
 
     return (
       <div id="character">

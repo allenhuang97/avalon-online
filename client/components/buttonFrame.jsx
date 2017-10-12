@@ -1,6 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import {
+  SUBMIT_VOTE,
+  SUBMIT_QUEST_SELECTION
+} from 'constants/clientEvents.js';
+
+import { emitAction } from 'sockets.js';
+
 class ButtonFrame extends React.Component {
   constructor(props) {
     super(props);
@@ -9,31 +16,30 @@ class ButtonFrame extends React.Component {
   }
 
   submitQuestPick = () => {
-    this.props.emitAction('clientSubmitQuestPick');
-    this.props.setPickVoteQuest(false, true);
+    // If not the correct number of players are chosen, show modal
+    emitAction(SUBMIT_QUEST_SELECTION, null);
   }
 
-  voteChoice = (choice) => {
-    this.props.emitAction('clientVote', { choice });
-    this.props.setPickVoteQuest(false, false);
+  submitVote = (vote) => {
+    emitAction(SUBMIT_VOTE, { vote });
   }
 
   render() {
     let buttonFrame;
 
-    if (this.props.isPickQuest) {
+    if (this.props.pickingQuest) {
       buttonFrame = (
         <div id="buttonFrame">
           <h3>Choose Quest</h3>
-          <button id="btnSubmitQuest" onClick={this.submitQuestPick}>Choose Quest</button>
+          <button id="btnSubmitQuest" onClick={this.submitQuestPick}>Submit Selection</button>
         </div>
       );
-    } else if (this.props.isVoteQuest) {
+    } else if (this.props.votingQuest) {
       buttonFrame = (
         <div id="buttonFrame">
           <h3>Vote</h3>
-          <button id="btnApprove" onClick={this.voteChoice(1)}>Approve</button>
-          <button id="btnReject" onClick={this.voteChoice(0)}>Reject</button>
+          <button id="btnApprove" onClick={this.submitVote(1)}>Approve</button>
+          <button id="btnReject" onClick={this.submitVote(0)}>Reject</button>
         </div>
       );
     } else if (this.props.voteComplete) {
@@ -60,10 +66,8 @@ class ButtonFrame extends React.Component {
 }
 
 ButtonFrame.propTypes = {
-  emitAction: PropTypes.func.isRequired,
-  setPickVoteQuest: PropTypes.func.isRequired,
-  isPickQuest: PropTypes.bool.isRequired,
-  isVoteQuest: PropTypes.bool.isRequired,
+  pickingQuest: PropTypes.bool.isRequired,
+  votingQuest: PropTypes.bool.isRequired,
   voteComplete: PropTypes.bool.isRequired,
   playerVotes: PropTypes.object.isRequired
 };
