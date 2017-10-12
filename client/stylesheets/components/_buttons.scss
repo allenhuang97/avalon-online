@@ -1,0 +1,23 @@
+.btn-primary {
+  margin-top: 25px;
+  display: inline-block;
+  min-width: 100px;
+  font-family: $sans-serif;
+  font-size: 15px;
+  padding: 1em;
+  border-style: solid;
+  border-radius: 5px;
+  border-color: $btn-primary-border;
+  color: $btn-primary-text;
+  background-color: $btn-primary-bgcolor;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    outline: 0;
+    background-color: $btn-primary-bghover;
+    border-color: $btn-primary-bghover;
+  }
+}

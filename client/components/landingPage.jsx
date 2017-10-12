@@ -44,22 +44,17 @@ class LandingPage extends React.Component {
 
   render() {
     return (
-      <div className="home">
-        <div className="home-form">
+      <div className="landing">
+        <div className="landing-form">
           <h1>Welcome to Avalon online</h1>
-          <p className="home-form-label">Enter a name to join the room</p>
+          <p className="landing-form-label">Enter a name to join the room</p>
           <input
             className="input-name"
             type="text"
             placeholder="nickname"
             onChange={this.updateInput}
           />
-          <div className="type-1">
-            <a className="btn btn-3" onClick={this.userJoin}>
-              <span className="txt">Enter</span>
-              <span className="round"><i className="fa fa-chevron-right" /></span>
-            </a>
-          </div>
+          <button className="btn-primary" onClick={this.userJoin}>Enter</button>
         </div>
         <Modal
           isOpen={this.state.showMaxPlayerModal}

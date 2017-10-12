@@ -41,12 +41,7 @@ class Lobby extends React.Component {
             )}
           </tbody>
         </table>
-        <div className="type-1">
-          <a className="btn btn-3" onClick={this.gameStart}>
-            <span className="txt">Start</span>
-            <span className="round"><i className="fa fa-chevron-right" /></span>
-          </a>
-        </div>
+        <button className="btn-primary" onClick={this.gameStart}>Enter</button>
         <Modal
           isOpen={this.state.showPlayerRequirementModal}
           contentLabel="Not enough players"
