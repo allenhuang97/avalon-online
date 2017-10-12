@@ -28,19 +28,15 @@ class Lobby extends React.Component {
 
   render() {
     return (
-      <div id="lobby">
+      <section className="lobby">
         <h2>Players In Lobby:</h2>
-        <table>
-          <tbody>
+        <ul className="lobby-player-list">
             {this.props.players.map((player, i) =>
               (
-                <tr key={i}>
-                  <td>{player}</td>
-                </tr>
+              <li className="lobby-player">{player}</li>
               )
             )}
-          </tbody>
-        </table>
+        </ul>
         <button className="btn-primary" onClick={this.gameStart}>Enter</button>
         <Modal
           isOpen={this.state.showPlayerRequirementModal}
@@ -53,7 +49,7 @@ class Lobby extends React.Component {
           <h5>Not enough players, 5 is the minimum</h5>
           <button type="button" onClick={this.toggleModal}>Ok</button>
         </Modal>
-      </div>
+      </section>
     );
   }
 }

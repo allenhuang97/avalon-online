@@ -44,7 +44,7 @@ class LandingPage extends React.Component {
 
   render() {
     return (
-      <div className="landing">
+      <section className="landing">
         <div className="landing-form">
           <h1>Welcome to Avalon online</h1>
           <p className="landing-form-label">Enter a name to join the room</p>
@@ -78,7 +78,7 @@ class LandingPage extends React.Component {
           <h5>You must enter a name.</h5>
           <button type="button" onClick={this.toggleEmptyNameModal}>Ok</button>
         </Modal>
-      </div>
+      </section>
     );
   }
 }
